@@ -8,6 +8,8 @@
 
 <launch>
   <arg name="calibration" default="" />
+  <arg name="view_width" default="6.28318530718" />
+  <arg name="view_angle" default="0" />
   <arg name="min_range" default="0.9" />
   <arg name="max_range" default="130.0" />
   <node pkg="nodelet" type="nodelet" name="cloud_nodelet"
@@ -15,5 +17,7 @@
     <param name="calibration" value="$(arg calibration)"/>
     <param name="min_range" value="$(arg min_range)"/>
     <param name="max_range" value="$(arg max_range)"/>
+    <param name="view_width" value="$(arg view_width)"/>
+    <param name="view_angle" value="$(arg view_angle)"/>
   </node>
 </launch>
