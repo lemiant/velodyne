@@ -55,16 +55,17 @@ namespace velodyne_rawdata
   static const float DISTANCE_RESOLUTION = 0.002f; /**< meters */
   static const float DISTANCE_MAX_UNITS = (DISTANCE_MAX
                                            / DISTANCE_RESOLUTION + 1.0);
+  /** @todo make this work for both big and little-endian machines */
   static const uint16_t UPPER_BANK = 0xeeff;
   static const uint16_t LOWER_BANK = 0xddff;
   
   
   /** Special Defines for VLP16 support **/
-  static const int VLP16_FIRINGS_PER_BLOCK = 2;
-  static const int VLP16_SCANS_PER_FIRING = 16;
-  static const int VLP16_BLOCK_TDURATION = 110.592;
-  static const int VLP16_DSR_TOFFSET = 2.304;
-  static const int VLP16_FIRING_TOFFSET = 55.296;
+  static const int    VLP16_FIRINGS_PER_BLOCK =   2;
+  static const int    VLP16_SCANS_PER_FIRING  =  16;
+  static const float  VLP16_BLOCK_TDURATION   = 110.592f;   // [µs]
+  static const float  VLP16_DSR_TOFFSET       =   2.304f;   // [µs]
+  static const float  VLP16_FIRING_TOFFSET    =  55.296f;   // [µs]
   
 
   /** \brief Raw Velodyne data block.

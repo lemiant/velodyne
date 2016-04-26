@@ -78,9 +78,14 @@ VelodyneDriver::VelodyneDriver(ros::NodeHandle node,
   std::string dump_file;
   private_nh.param("pcap", dump_file, std::string(""));
 
+
   double cut_angle;
   private_nh.param("cut_angle", cut_angle, -0.01);
   config_.cut_angle = int(cut_angle*100);
+
+  int udp_port;
+  private_nh.param("port", udp_port, (int)UDP_PORT_NUMBER);
+
 
   // initialize diagnostics
   diagnostics_.setHardwareID(deviceName);
@@ -105,8 +110,14 @@ VelodyneDriver::VelodyneDriver(ros::NodeHandle node,
     }
   else
     {
-      input_.reset(new velodyne_driver::InputSocket(private_nh));
+      input_.reset(new velodyne_driver::InputSocket(private_nh, udp_port));
     }
+
+  std::string devip;
+  private_nh.param("device_ip", devip, std::string(""));
+  if(!devip.empty())
+    ROS_INFO_STREAM("Set device ip to " << devip << ", only accepting packets from this address." );
+  input_->setDeviceIP(devip);
 
   // raw data output topic
   output_ = node.advertise<velodyne_msgs::VelodyneScan>("velodyne_packets", 10);
